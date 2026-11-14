@@ -125,6 +125,10 @@ In accordance with NASA Space Apps Challenge guidelines:
 
 ---
 
-## 7. Public Project Link
-- **GitHub Repository Link:** *(User's public repository URL, e.g., `https://github.com/<username>/TERRA-LUNA`)*
-- **Live Demo Link (GitHub Pages):** *(User's hosted URL, e.g., `https://<username>.github.io/TERRA-LUNA/`)*
+## 7. Public Project Links
+
+- **Project (Public Code Repository):**  
+  `https://github.com/Mmmaihdnsc/luna`
+
+- **Live Web App / Tool (GitHub Pages):**  
+  `https://mmmaihdnsc.github.io/luna/`

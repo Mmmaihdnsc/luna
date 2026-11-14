@@ -8,7 +8,8 @@
 > **NASA Space Apps Challenge 2026**  
 > **Challenge:** *Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars*  
 > **Team:** *Archimedes*  
-> **Live Demo:** [Launch TERRA-LUNA Dashboard](https://github.com/your-username/TERRA-LUNA)
+> **Live Demo:** [Launch TERRA-LUNA Dashboard](https://mmmaihdnsc.github.io/luna/)  
+> **Source Code:** [GitHub Repository](https://github.com/Mmmaihdnsc/luna)
 
 ---
 
