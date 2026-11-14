@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TERRA-LUNA | 7-Slide Pitch Deck Presentation</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-deep: #07090e;
+      --bg-card: #0e131d;
+      --bg-card-hover: #151c2b;
+      --bg-surface: #121824;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(0, 229, 255, 0.35);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --color-cyan: #00e5ff;
+      --color-cyan-glow: rgba(0, 229, 255, 0.35);
+      --color-mars: #ff5722;
+      --color-mars-glow: rgba(255, 87, 34, 0.35);
+      --color-emerald: #00e676;
+      --font-main: 'Inter', -apple-system, sans-serif;
+      --font-display: 'Orbitron', -apple-system, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Control Header */
+    .deck-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1.5rem;
+      background: rgba(14, 19, 29, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 100;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .brand-title span {
+      color: var(--color-cyan);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-cyan {
+      background: rgba(0, 229, 255, 0.12);
+      border-color: var(--color-cyan);
+      color: var(--color-cyan);
+    }
+
+    .btn-cyan:hover {
+      background: rgba(0, 229, 255, 0.25);
+      box-shadow: 0 0 10px var(--color-cyan-glow);
+    }
+
+    .badge-nasa {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.3rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    /* Presentation Stage */
+    .deck-viewport {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .slide-aspect-box {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.75);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 2.5rem 3rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(30px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    /* Slide Content Layouts */
+    .slide-badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: var(--color-cyan);
+      margin-bottom: 0.4rem;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .slide-title span {
+      color: var(--color-cyan);
+    }
+
+    .cards-row-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      flex: 1;
+    }
+
+    .slide-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .slide-card.cyan { border-top: 3px solid var(--color-cyan); }
+    .slide-card.mars { border-top: 3px solid var(--color-mars); }
+    .slide-card.emerald { border-top: 3px solid var(--color-emerald); }
+
+    .card-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .card-list li i {
+      color: var(--color-cyan);
+      font-size: 0.7rem;
+      margin-top: 0.3rem;
+      flex-shrink: 0;
+    }
+
+    /* Bottom Nav Bar */
+    .deck-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 2rem;
+      background: rgba(14, 19, 29, 0.9);
+      border-top: 1px solid var(--border-subtle);
+      z-index: 100;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--color-cyan);
+      color: #000;
+      border-color: var(--color-cyan);
+      box-shadow: 0 0 10px var(--color-cyan-glow);
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .dots-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      background: var(--color-cyan);
+      box-shadow: 0 0 8px var(--color-cyan);
+      transform: scale(1.2);
+    }
+
+    /* Speaker Notes Modal / Drawer */
+    .speaker-notes-drawer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(9, 13, 21, 0.95);
+      border-top: 1px solid var(--color-cyan);
+      padding: 1rem 1.5rem;
+      font-size: 0.82rem;
+      color: #bae6fd;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .speaker-notes-drawer.open {
+      transform: translateY(0);
+    }
+
+    .notes-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-cyan);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    /* Fullscreen Mode */
+    :fullscreen .deck-viewport {
+      padding: 0;
+    }
+    :fullscreen .slide-aspect-box {
+      max-width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="deck-header">
+    <div class="brand-title">
+      <i class="fa-solid fa-satellite-dish" style="color: var(--color-cyan);"></i>
+      TERRA<span>-LUNA</span> &bull; Pitch Deck
+    </div>
+    <div class="header-actions">
+      <span class="badge-nasa">NASA SPACE APPS 2026</span>
+      <button class="btn btn-cyan" id="btnNotes">
+        <i class="fa-solid fa-comment-dots"></i> Speaker Script
+      </button>
+      <a href="TERRA-LUNA_Presentation.pptx" download class="btn" title="Download offline PowerPoint presentation file">
+        <i class="fa-solid fa-file-powerpoint" style="color: #ea580c;"></i> Download .PPTX
+      </a>
+      <a href="index.html" class="btn">
+        <i class="fa-solid fa-earth-americas" style="color: var(--color-emerald);"></i> Launch App
+      </a>
+      <button class="btn" id="btnFullscreen" title="Toggle Fullscreen">
+        <i class="fa-solid fa-expand"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Presentation Stage -->
+  <main class="deck-viewport">
+    <div class="slide-aspect-box" id="slideStage">
+      
+      <!-- SLIDE 1: Title -->
+      <div class="slide active" data-slide="1" data-notes="Good day judges. We are Team Archimedes, and we present TERRA-LUNA, an open-data geospatial platform that identifies and characterizes Earth locations analogous to future permanent landing sites on the Moon and Mars.">
+        <div>
+          <div class="slide-badge">NASA Space Apps Challenge 2026 &bull; Team Archimedes</div>
+          <h1 style="font-family: var(--font-display); font-size: 3.2rem; line-height: 1.1; margin-bottom: 0.5rem; color: #fff;">
+            TERRA<span style="color: var(--color-cyan);">-LUNA</span>
+          </h1>
+          <p style="font-size: 1.35rem; color: var(--color-emerald); font-weight: 600; margin-bottom: 1.5rem;">
+            Planetary Surface Analog Discovery &amp; Characterization Engine
+          </p>
+        </div>
+
+        <div style="background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border-accent); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--color-cyan); font-weight: 700; margin-bottom: 0.4rem;">
+            Challenge Objective
+          </div>
+          <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.5;">
+            Identify Earth locations that analog permanent Moon base locations and Mars using open data from NASA and space agencies to characterize new terrestrial analogs for future bases, landing sites, and surface missions.
+          </p>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 0.85rem;">
+          <div><i class="fa-brands fa-github"></i> github.com/Mmmaihdnsc/luna</div>
+          <div><i class="fa-solid fa-globe"></i> mmmaihdnsc.github.io/luna</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Problem Statement -->
+      <div class="slide" data-slide="2" data-notes="Before astronauts land on Shackleton Rim or Jezero Crater, mission teams must verify hardware on Earth. However, historical analog site selection has been qualitative, isolated, and under-characterized.">
+        <div>
+          <div class="slide-badge">The Problem &bull; Mission Risk</div>
+          <h2 class="slide-title">Why Terrestrial Analogs are <span>Crucial</span> Yet Under-Characterized</h2>
+        </div>
+
+        <div class="cards-row-3">
+          <div class="slide-card mars">
+            <div class="card-num">Problem 01</div>
+            <div class="card-title">High Mission Stakes</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-triangle-exclamation"></i> Artemis &amp; Mars missions require touchdown on extreme terrain (polar craters, lava tubes, buried ice).</li>
+              <li><i class="fa-solid fa-triangle-exclamation"></i> Hardware failure on the Moon or Mars is catastrophic and irreversible.</li>
+              <li><i class="fa-solid fa-triangle-exclamation"></i> Rovers, seals, and drills must be validated in terrestrial analogs prior to flight.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card cyan">
+            <div class="card-num">Problem 02</div>
+            <div class="card-title">Fragmented Data</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-database"></i> Historical selection was qualitative: 'it visually looks like Mars'.</li>
+              <li><i class="fa-solid fa-database"></i> Terrestrial satellite archives (ASTER, Landsat) were disconnected from planetary data (LOLA, CRISM).</li>
+              <li><i class="fa-solid fa-database"></i> No standardized quantitative similarity metric existed across missions.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card emerald">
+            <div class="card-num">Problem 03</div>
+            <div class="card-title">Operational Blind Spots</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-microscope"></i> Subsurface permafrost stability and cryogenic volatile extraction remain under-tested.</li>
+              <li><i class="fa-solid fa-microscope"></i> Razor-sharp glassy tephra damages rover wheels and spacesuit seals.</li>
+              <li><i class="fa-solid fa-microscope"></i> Subterranean lava tube bases lack unified structural catalogs.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: The Solution -->
+      <div class="slide" data-slide="3" data-notes="TERRA-LUNA solves this by unifying open orbital datasets into an interactive geospatial engine that calculates mathematical similarity across 5 core planetary axes.">
+        <div>
+          <div class="slide-badge">The Solution &bull; Platform Architecture</div>
+          <h2 class="slide-title">TERRA-LUNA: <span>Quantitative</span> Geospatial Intelligence</h2>
+        </div>
+
+        <div class="cards-row-3">
+          <div class="slide-card cyan">
+            <div class="card-num">Pillar 01</div>
+            <div class="card-title">Global Analog Catalog</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-check"></i> 12 globally characterized terrestrial analog sites.</li>
+              <li><i class="fa-solid fa-check"></i> Covers volcanic basalt fields, subterranean lava tubes, polar deserts, and maar impact craters.</li>
+              <li><i class="fa-solid fa-check"></i> Mapped directly to Artemis South Pole (Shackleton, Marius) and Mars (Jezero, Utopia).</li>
+            </ul>
+          </div>
+
+          <div class="slide-card mars">
+            <div class="card-num">Pillar 02</div>
+            <div class="card-title">Multi-Sensor Data Fusion</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-check"></i> Merges NASA LOLA, Diviner, and MRO CRISM/HiRISE with Earthdata ASTER and EMIT.</li>
+              <li><i class="fa-solid fa-check"></i> Integrates ESA Copernicus Sentinel-2 and JAXA Kaguya radar data.</li>
+              <li><i class="fa-solid fa-check"></i> Cross-references topography with absorption mineral spectra.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card emerald">
+            <div class="card-num">Pillar 03</div>
+            <div class="card-title">Decision-Support Tools</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-check"></i> Interactive dark-mode map with geodesic 'Analog Bridge' arcs.</li>
+              <li><i class="fa-solid fa-check"></i> Side-by-side Dual Telemetry comparison with dynamic radar charts.</li>
+              <li><i class="fa-solid fa-check"></i> Topographic Transect Simulator and exportable mission dossiers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Scientific Methodology -->
+      <div class="slide" data-slide="4" data-notes="Our proprietary 5-Axis Planetary Similarity Index replaces guesswork with quantifiable scoring across topography, mineralogy, environment, regolith mechanics, and mission utility.">
+        <div>
+          <div class="slide-badge">Scientific Methodology &bull; Algorithmic Scoring</div>
+          <h2 class="slide-title">The 5-Axis <span>Planetary Similarity</span> Index</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.25rem; flex: 1;">
+          <div class="slide-card cyan" style="justify-content: center;">
+            <div class="card-num">The Formula</div>
+            <div style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--color-emerald); background: rgba(0,0,0,0.4); padding: 0.75rem; border-radius: 6px; margin: 0.5rem 0;">
+              Score = w₁·S_topo + w₂·S_min + w₃·S_env + w₄·S_reg + w₅·S_util
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0.75rem;">
+              Calculates normalized 0–100% fidelity sub-indices derived directly from orbital telemetry and ground-truth physics.
+            </p>
+            <div style="font-size: 0.75rem; color: #fff;">
+              <strong>Top Verified Matches:</strong><br>
+              &bull; McMurdo vs Utopia Planitia: <strong>96%</strong><br>
+              &bull; Atacama vs Jezero Crater: <strong>95%</strong><br>
+              &bull; Askja vs Marius Hills Pit: <strong>94%</strong><br>
+              &bull; Kilbourne Hole vs Artemis Rim: <strong>93%</strong>
+            </div>
+          </div>
+
+          <div class="slide-card" style="border-top: 3px solid var(--color-mars);">
+            <div class="card-num">Core Dimensions Evaluated</div>
+            <ul class="card-list" style="font-size: 0.78rem;">
+              <li><i class="fa-solid fa-mountain" style="color: var(--color-cyan);"></i> <strong>1. Topography &amp; Slope:</strong> Elevation variance, roughness RMS, and slope gradients (LOLA/MOLA vs ASTER GDEM).</li>
+              <li><i class="fa-solid fa-flask" style="color: var(--color-emerald);"></i> <strong>2. Mineralogical Fidelity:</strong> Absorption spectroscopy for basalt, clays, sulfates, and opal-A silica (CRISM vs Landsat/EMIT).</li>
+              <li><i class="fa-solid fa-temperature-half" style="color: var(--color-mars);"></i> <strong>3. Environmental Extremes:</strong> Thermal range swings (-246°C to +50°C), aridity index, and UV radiation (Diviner vs MODIS).</li>
+              <li><i class="fa-solid fa-shoe-prints" style="color: #a855f7;"></i> <strong>4. Regolith Mechanics:</strong> Grain size distribution, cohesion, and wheel sinkage friction angles.</li>
+              <li><i class="fa-solid fa-rocket" style="color: #38bdf8;"></i> <strong>5. Mission Subsystem Utility:</strong> Operational fit for EVA suits, rovers, ISRU drills, or cave shelters.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Interactive Platform Features -->
+      <div class="slide" data-slide="5" data-notes="Users can filter analogs by terrain class, inspect deep dossiers, run side-by-side comparative telemetry, and simulate topographic slope traverses in real time.">
+        <div>
+          <div class="slide-badge">User Experience &bull; Operational Capabilities</div>
+          <h2 class="slide-title">Interactive <span>Telemetry Tools</span> &amp; UI Architecture</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1;">
+          <div class="slide-card cyan">
+            <div class="card-title" style="font-size: 0.95rem;"><i class="fa-solid fa-map-location-dot"></i> Geospatial Analog Map</div>
+            <ul class="card-list" style="font-size: 0.78rem;">
+              <li>&bull; Carto Dark Matter and Esri Satellite basemap layers.</li>
+              <li>&bull; Geodesic 'Analog Bridges' connecting Earth sites to planetary bodies.</li>
+              <li>&bull; Instant filtering by terrain category and mission objective.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card emerald">
+            <div class="card-title" style="font-size: 0.95rem;"><i class="fa-solid fa-arrows-split-up-and-left"></i> Dual Telemetry Matrix</div>
+            <ul class="card-list" style="font-size: 0.78rem;">
+              <li>&bull; Head-to-head parameter comparison for any Earth analog vs any Moon/Mars target.</li>
+              <li>&bull; Dynamic 5-axis Chart.js radar charts comparing parameter envelopes.</li>
+              <li>&bull; Parameter delta tables: elevations, thermal swings, and challenges.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card mars">
+            <div class="card-title" style="font-size: 0.95rem;"><i class="fa-solid fa-mountain"></i> Topo Transect Simulator</div>
+            <ul class="card-list" style="font-size: 0.78rem;">
+              <li>&bull; Interactive HTML5 Canvas elevation cross-section simulator.</li>
+              <li>&bull; Compares crater rim transects (Haughton vs Shackleton) and lava tubes.</li>
+              <li>&bull; Real-time calculation of max wall slope, roughness, and obstacle density.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card" style="border-top: 3px solid #cbd5e1;">
+            <div class="card-title" style="font-size: 0.95rem;"><i class="fa-solid fa-file-pdf"></i> Mission Dossier Exporter</div>
+            <ul class="card-list" style="font-size: 0.78rem;">
+              <li>&bull; One-click print/PDF generator for field mission teams.</li>
+              <li>&bull; Incorporates field logistics: accessibility, isolation, and research facilities.</li>
+              <li>&bull; Direct hyperlinks to open NASA PDS and Earthdata archives.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: Open Data Integration -->
+      <div class="slide" data-slide="6" data-notes="Every score within TERRA-LUNA is grounded in open, verifiable scientific data from NASA PDS, Earthdata, ESA Copernicus, and JAXA, ensuring total scientific transparency.">
+        <div>
+          <div class="slide-badge">Open Science &bull; Data Provenance</div>
+          <h2 class="slide-title">Powered by <span>100% Open Data</span> from Space Agencies</h2>
+        </div>
+
+        <div class="cards-row-3">
+          <div class="slide-card cyan">
+            <div class="card-num">NASA Lunar Science</div>
+            <div class="card-title">LRO &amp; GRAIL</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-satellite"></i> <strong>LRO LOLA:</strong> Topographic DEMs &amp; surface slope roughness models.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>LRO Diviner:</strong> Lunar thermal radiometer scans of PSR cold traps.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>LROC ShadowCam:</strong> Ultra-sensitive imaging of shadowed craters.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>GRAIL:</strong> Subsurface density mapping for lava tube caverns.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card mars">
+            <div class="card-num">NASA Mars Exploration</div>
+            <div class="card-title">MRO, Curiosity, M2020</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-satellite"></i> <strong>MRO CRISM:</strong> Hyperspectral visible/IR mineralogy cubes.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>MRO HiRISE:</strong> Sub-meter imagery of active dunes and scarps.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>MRO SHARAD:</strong> Shallow radar sounding of subsurface ice.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>CheMin &amp; SuperCam:</strong> Ground-truth mineralogical verification.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card emerald">
+            <div class="card-num">Earth Observation &amp; Partners</div>
+            <div class="card-title">Earthdata, ESA, JAXA</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-satellite"></i> <strong>NASA Earthdata:</strong> MODIS LST, ASTER Global DEM, Landsat 8/9.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>NASA EMIT:</strong> ISS 285-channel mineral dust spectrometer.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>ESA Copernicus:</strong> Sentinel-2 10m multispectral imagery.</li>
+              <li><i class="fa-solid fa-satellite"></i> <strong>ESA &amp; JAXA:</strong> PANGAEA astronaut cave training and Kaguya LRS.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Impact & Roadmap -->
+      <div class="slide" data-slide="7" data-notes="By unlocking Earth's planetary secrets, TERRA-LUNA empowers scientists and astronauts to train effectively before leaving Earth. Thank you, and we welcome your questions!">
+        <div>
+          <div class="slide-badge">Mission Impact &bull; Future Horizons</div>
+          <h2 class="slide-title">De-Risking <span>Humanity's Next Giant Leap</span></h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; flex: 1;">
+          <div class="slide-card cyan">
+            <div class="card-num">Operational Impact</div>
+            <div class="card-title">Artemis &amp; Mars Ready</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-circle-check"></i> <strong>Artemis Astronaut Geology:</strong> Pinpoints Kilbourne Hole and Iceland as optimal sites for EVA suit traverses and sample collection.</li>
+              <li><i class="fa-solid fa-circle-check"></i> <strong>Mars In-Situ Resource Utilization (ISRU):</strong> Validates McMurdo Dry Valleys as the definitive ground-truth for cryogenic ice drilling.</li>
+              <li><i class="fa-solid fa-circle-check"></i> <strong>Subsurface Base Construction:</strong> Establishes Lanzarote lava tubes as structural prototypes for radiation shelters.</li>
+            </ul>
+          </div>
+
+          <div class="slide-card emerald">
+            <div class="card-num">Next Horizons</div>
+            <div class="card-title">Roadmap &amp; Live Access</div>
+            <ul class="card-list">
+              <li><i class="fa-solid fa-arrow-right"></i> <strong>Machine Learning Candidate Detection:</strong> AI scanning global EMIT/Landsat imagery to uncover unmapped analogs.</li>
+              <li><i class="fa-solid fa-arrow-right"></i> <strong>NASA Web WorldWind Integration:</strong> Transitioning to full 3D digital planetary globes.</li>
+              <li><i class="fa-solid fa-arrow-right"></i> <strong>Citizen Science Field Logging:</strong> Enabling researchers worldwide to submit in-situ regolith measurements.</li>
+            </ul>
+
+            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(0, 229, 255, 0.1); border: 1px solid var(--color-cyan); border-radius: 6px; text-align: center;">
+              <a href="index.html" style="color: var(--color-cyan); font-weight: 700; text-decoration: none; font-size: 0.85rem;">
+                <i class="fa-solid fa-play"></i> LAUNCH LIVE APPLICATION NOW
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speaker Notes Drawer -->
+      <div class="speaker-notes-drawer" id="notesDrawer">
+        <div class="notes-title"><i class="fa-solid fa-comment-dots"></i> Speaker Notes / Presentation Script</div>
+        <p id="notesContent" style="line-height: 1.45;"></p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <footer class="deck-footer">
+    <div class="nav-controls">
+      <button class="nav-btn" id="btnPrev" title="Previous Slide (Left Arrow)"><i class="fa-solid fa-chevron-left"></i></button>
+      <span class="slide-counter" id="slideCounter">Slide 1 / 7</span>
+      <button class="nav-btn" id="btnNext" title="Next Slide (Right Arrow)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="dots-container" id="dotsContainer">
+      <span class="dot active" data-goto="1"></span>
+      <span class="dot" data-goto="2"></span>
+      <span class="dot" data-goto="3"></span>
+      <span class="dot" data-goto="4"></span>
+      <span class="dot" data-goto="5"></span>
+      <span class="dot" data-goto="6"></span>
+      <span class="dot" data-goto="7"></span>
+    </div>
+
+    <div style="font-size: 0.75rem; color: var(--text-dim);">
+      Keys: <kbd style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px;">&larr;</kbd> <kbd style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px;">&rarr;</kbd> or <kbd style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px;">Space</kbd>
+    </div>
+  </footer>
+
+  <!-- Deck Controller Script -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 7;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const counter = document.getElementById('slideCounter');
+    const notesDrawer = document.getElementById('notesDrawer');
+    const notesContent = document.getElementById('notesContent');
+
+    function goToSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      currentSlide = n;
+
+      slides.forEach((s) => s.classList.remove('active'));
+      dots.forEach((d) => d.classList.remove('active'));
+
+      const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+        notesContent.textContent = activeSlide.getAttribute('data-notes') || 'No speaker notes for this slide.';
+      }
+
+      const activeDot = document.querySelector(`.dot[data-goto="${currentSlide}"]`);
+      if (activeDot) activeDot.classList.add('active');
+
+      counter.textContent = `Slide ${currentSlide} / ${totalSlides}`;
+    }
+
+    document.getElementById('btnNext').addEventListener('click', () => goToSlide(currentSlide + 1));
+    document.getElementById('btnPrev').addEventListener('click', () => goToSlide(currentSlide - 1));
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        goToSlide(parseInt(dot.getAttribute('data-goto')));
+      });
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        goToSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        goToSlide(currentSlide - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleNotes();
+      }
+    });
+
+    // Toggle Notes
+    function toggleNotes() {
+      notesDrawer.classList.toggle('open');
+    }
+    document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+
+    // Toggle Fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+    document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
+
+    // Init
+    goToSlide(1);
+  </script>
+</body>
+</html>

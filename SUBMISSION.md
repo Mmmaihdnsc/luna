@@ -103,32 +103,23 @@ In accordance with NASA Space Apps Challenge guidelines:
 
 ---
 
-## 6. Project Demonstration (Two Options Provided)
+## 6. Project Demonstration
 
-### Option A: 7-Slide Presentation Structure (Strictly 7 Slides)
-*(See `SLIDES.md` for full markdown layout)*
-- **Slide 1:** Title, Team Archimedes, Challenge Name, Tagline.
-- **Slide 2:** The Challenge & Problem Statement (Why terrestrial analogs are mission-critical yet under-characterized).
-- **Slide 3:** The Solution: TERRA-LUNA Platform Overview.
-- **Slide 4:** 5-Axis Planetary Similarity Methodology & Scientific Scoring.
-- **Slide 5:** Interactive Geospatial Engine & Dual Telemetry Features.
-- **Slide 6:** NASA Open Data Integration & Catalog Characterization.
-- **Slide 7:** Future Horizons & Mission Impact (Artemis & Mars).
+### 🌟 Live Interactive Presentation (Opens Immediately in Browser):
+**Direct Presentation URL for Form:**  
+👉 `https://mmmaihdnsc.github.io/luna/slides.html`
 
-### Option B: 30-Second Video Demo Script
-*(See `DEMO_SCRIPT.md` for exact timestamps, on-screen visuals, and voiceover)*
-- **0:00–0:05:** Hook & Mission Challenge.
-- **0:05–0:12:** The TERRA-LUNA Interactive Geospatial Explorer & Filter Engine.
-- **0:12–0:20:** Deep Site Dossier & 5-Axis Similarity Radar Chart.
-- **0:20–0:26:** Topographic Transect Simulator & Dual Telemetry Comparison.
-- **0:26–0:30:** Closing call to action: De-risking humanity's next giant leap.
+*(Judges can click this link to open the full 7-slide presentation directly in their browser with slide transitions, speaker notes, and fullscreen mode. The offline PowerPoint file is also available at `https://github.com/Mmmaihdnsc/luna/blob/main/TERRA-LUNA_Presentation.pptx`)*
 
 ---
 
 ## 7. Public Project Links
 
+- **Project Demonstration (Direct Browser Presentation):**  
+  `https://mmmaihdnsc.github.io/luna/slides.html`
+
 - **Project (Public Code Repository):**  
   `https://github.com/Mmmaihdnsc/luna`
 
-- **Live Web App / Tool (GitHub Pages):**  
+- **Live Geospatial App / Tool (GitHub Pages):**  
   `https://mmmaihdnsc.github.io/luna/`

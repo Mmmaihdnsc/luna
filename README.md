@@ -9,6 +9,7 @@
 > **Challenge:** *Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars*  
 > **Team:** *Archimedes*  
 > **Live Demo:** [Launch TERRA-LUNA Dashboard](https://mmmaihdnsc.github.io/luna/)  
+> **Presentation Deck:** [View 7-Slide Pitch Deck](https://mmmaihdnsc.github.io/luna/slides.html)  
 > **Source Code:** [GitHub Repository](https://github.com/Mmmaihdnsc/luna)
 
 ---
