@@ -87,7 +87,7 @@ Our team conducted a holistic cross-disciplinary analysis considering:
 | 2 | ESA PANGAEA Planetary Field Training Dataset | `https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/CAVES_and_PANGAEA` |
 | 3 | JAXA SELENE (Kaguya) Lunar Orbiter Data Archive | `https://darts.isas.jaxa.jp/planet/pdap/selene/` |
 | 4 | USGS 3D Elevation Program (3DEP) High-Resolution LiDAR | `https://www.usgs.gov/3d-elevation-program` |
-| 5 | CartoDB Dark Matter Basemap Services | `https://carto.com/basemaps/` |
+| 5 | Esri ArcGIS Open Geospatial Basemaps | `https://www.arcgis.com/` |
 | 6 | Leaflet Open-Source Interactive Map Library | `https://leafletjs.com/` |
 
 ---
