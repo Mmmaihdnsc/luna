@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TERRA-LUNA | Planetary Surface Analog Engine & Geospatial Explorer</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <!-- App Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="navbar">
+    <div class="brand-container">
+      <div class="brand-logo-badge">
+        <i class="fa-solid fa-satellite-dish"></i>
+      </div>
+      <div class="brand-text">
+        <h1>TERRA<span>-LUNA</span></h1>
+        <p>Planetary Surface Analog Discovery & Characterization Engine</p>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <span class="badge-nasa">
+        <span class="status-dot"></span> NASA SPACE APPS 2026
+      </span>
+      <button class="btn btn-cyan" id="btnOpenCompare">
+        <i class="fa-solid fa-arrows-split-up-and-left"></i> Dual Telemetry
+      </button>
+      <button class="btn btn-mars" id="btnOpenTopo">
+        <i class="fa-solid fa-mountain"></i> Topo Transect
+      </button>
+      <button class="btn btn-emerald" id="btnOpenDatasets">
+        <i class="fa-solid fa-database"></i> NASA Open Data
+      </button>
+      <button class="btn" id="btnOpenProjectInfo">
+        <i class="fa-solid fa-circle-info"></i> Project Brief
+      </button>
+      <button class="btn" id="btnPrintReport" title="Print or save Mission Dossier">
+        <i class="fa-solid fa-file-pdf"></i> Export Dossier
+      </button>
+    </div>
+  </header>
+
+  <!-- Telemetry Ribbon Bar -->
+  <div class="telemetry-ribbon">
+    <div class="telemetry-item">
+      <div class="telemetry-icon" style="color: var(--color-emerald);">
+        <i class="fa-solid fa-earth-americas"></i>
+      </div>
+      <div class="telemetry-data">
+        <div class="t-label">Characterized Analogs</div>
+        <div class="t-val" id="statAnalogCount">12 SITES</div>
+      </div>
+    </div>
+    
+    <div class="telemetry-item">
+      <div class="telemetry-icon" style="color: var(--color-cyan);">
+        <i class="fa-solid fa-moon"></i>
+      </div>
+      <div class="telemetry-data">
+        <div class="t-label">Artemis Moon Targets</div>
+        <div class="t-val">3 BASES (PSR &amp; Tubes)</div>
+      </div>
+    </div>
+
+    <div class="telemetry-item">
+      <div class="telemetry-icon" style="color: var(--color-mars);">
+        <i class="fa-solid fa-circle-dot"></i>
+      </div>
+      <div class="telemetry-data">
+        <div class="t-label">Mars Mission Targets</div>
+        <div class="t-val">3 REGIONS (Ice &amp; Deltas)</div>
+      </div>
+    </div>
+
+    <div class="telemetry-item">
+      <div class="telemetry-icon" style="color: #a855f7;">
+        <i class="fa-solid fa-bullseye"></i>
+      </div>
+      <div class="telemetry-data">
+        <div class="t-label">Mean Fidelity Score</div>
+        <div class="t-val">92.4% SIMILARITY</div>
+      </div>
+    </div>
+
+    <div class="telemetry-item">
+      <div class="telemetry-icon" style="color: #38bdf8;">
+        <i class="fa-solid fa-network-wired"></i>
+      </div>
+      <div class="telemetry-data">
+        <div class="t-label">Open NASA Sensors</div>
+        <div class="t-val">8 INTEGRATED</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Three-Column Dashboard Grid -->
+  <main class="dashboard-container">
+    
+    <!-- LEFT SIDEBAR: Filters & Analog Catalog -->
+    <aside class="sidebar-left">
+      <div class="panel-header">
+        <div class="panel-title">
+          <i class="fa-solid fa-sliders"></i> Analog Finder
+        </div>
+        <span class="badge-nasa" id="filterResultCount">12 Available</span>
+      </div>
+
+      <!-- Search -->
+      <div class="filter-group">
+        <div class="search-input-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search analog or mineral...">
+        </div>
+
+        <!-- Target Body Filter -->
+        <span class="filter-title">Planetary Target Match</span>
+        <div class="filter-pills" id="targetFilterPills">
+          <button class="filter-pill active" data-target="all">All Targets</button>
+          <button class="filter-pill" data-target="moon">Moon (Artemis)</button>
+          <button class="filter-pill" data-target="mars">Mars (MSR/ISRU)</button>
+        </div>
+      </div>
+
+      <!-- Environment Category Filter -->
+      <div class="filter-group">
+        <span class="filter-title">Terrain &amp; Environment Class</span>
+        <div class="filter-pills" id="categoryFilterPills">
+          <button class="filter-pill active" data-category="all">All Classes</button>
+          <button class="filter-pill" data-category="Volcanic & Basaltic">Volcanic</button>
+          <button class="filter-pill" data-category="Polar Cold Desert & Permafrost">Polar Desert</button>
+          <button class="filter-pill" data-category="Lava Tubes & Caves">Lava Tubes</button>
+          <button class="filter-pill" data-category="Hyper-Arid Desert">Hyper-Arid</button>
+          <button class="filter-pill" data-category="Impact Crater & Polar">Impact Crater</button>
+        </div>
+      </div>
+
+      <!-- Scrollable Catalog Cards List -->
+      <div class="site-list-scroll" id="siteCardsContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+    </aside>
+
+    <!-- CENTER: Leaflet Interactive Geospatial Map -->
+    <section class="center-content">
+      <!-- Floating Map Layer Selector -->
+      <div class="map-floating-overlay">
+        <button class="map-layer-btn active" id="btnLayerDark">
+          <i class="fa-solid fa-moon"></i> Carto Dark
+        </button>
+        <button class="map-layer-btn" id="btnLayerSatellite">
+          <i class="fa-solid fa-satellite"></i> Satellite
+        </button>
+        <button class="map-layer-btn" id="btnToggleBridges">
+          <i class="fa-solid fa-diagram-project"></i> Analog Arcs
+        </button>
+        <button class="map-layer-btn" id="btnResetView">
+          <i class="fa-solid fa-globe"></i> Reset View
+        </button>
+      </div>
+
+      <!-- Leaflet Map Container -->
+      <div id="map"></div>
+
+      <!-- Map Legend Overlay -->
+      <div class="map-legend">
+        <div class="map-legend-title">Geospatial Legend</div>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-circle earth"></span> Terrestrial Analog Sites
+          </div>
+          <div class="legend-item">
+            <span class="legend-circle moon"></span> Moon Artemis Base Match
+          </div>
+          <div class="legend-item">
+            <span class="legend-circle mars"></span> Mars Mission Site Match
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDEBAR: Deep Characterization Dossier -->
+    <aside class="sidebar-right" id="dossierContainer">
+      <!-- Injected via JavaScript based on Active Site -->
+    </aside>
+
+  </main>
+
+  <!-- MODAL: Side-by-Side Dual Telemetry Comparison -->
+  <div class="modal-backdrop" id="modalCompare">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-arrows-split-up-and-left" style="color: var(--color-cyan);"></i>
+          Dual Telemetry: Earth Analog vs Planetary Target
+        </div>
+        <button class="modal-close" data-close="modalCompare">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.25rem;">
+          <div style="flex: 1;">
+            <label style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Select Earth Analog:</label>
+            <select id="selectCompareAnalog" class="search-input" style="margin-top: 0.35rem; padding-left: 0.75rem;">
+              <!-- Injected by JS -->
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Select Planetary Target:</label>
+            <select id="selectCompareTarget" class="search-input" style="margin-top: 0.35rem; padding-left: 0.75rem;">
+              <!-- Injected by JS -->
+            </select>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-column earth" id="compColEarth">
+            <!-- Injected by JS -->
+          </div>
+          <div class="comparison-column target" id="compColTarget">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <h4 style="font-size: 0.82rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Multi-Parametric Fidelity Radar</h4>
+          <div style="height: 240px; position: relative;">
+            <canvas id="compRadarChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Topographic Transect Simulator -->
+  <div class="modal-backdrop" id="modalTopo">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-mountain" style="color: var(--color-mars);"></i>
+          Topographic Transect &amp; Slope Roughness Simulator
+        </div>
+        <button class="modal-close" data-close="modalTopo">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Comparing digital elevation cross-sections between terrestrial analog formations (ASTER / SRTM / USGS 3DEP) and extraterrestrial landing zones (LRO LOLA / Mars MOLA).
+        </p>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+          <div style="flex: 1;">
+            <label style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase;">Cross-Section Formation:</label>
+            <select id="selectTopoProfile" class="search-input" style="margin-top: 0.35rem; padding-left: 0.75rem;">
+              <option value="crater">Impact Crater Cross-Section (Haughton Crater vs Shackleton Rim)</option>
+              <option value="lavatube">Subsurface Lava Tube Trench (Lanzarote vs Marius Hills Pit)</option>
+              <option value="dune">Eolian Regolith Dune Field (Wadi Rum vs Gale Crater Dunes)</option>
+              <option value="maar">Maar Explosion Crater Wall (Kilbourne Hole vs Artemis South Pole Highland)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="topo-canvas-wrapper">
+          <canvas id="topoCanvas"></canvas>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+          <div class="score-mini-card">
+            <div class="score-mini-title">Max Wall Slope <span>28.4°</span></div>
+            <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 0.2rem;">Artemis Rover Threshold &lt; 30°</div>
+          </div>
+          <div class="score-mini-card">
+            <div class="score-mini-title">Surface Roughness RMS <span>0.84 m</span></div>
+            <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 0.2rem;">Derived via LOLA / SRTM</div>
+          </div>
+          <div class="score-mini-card">
+            <div class="score-mini-title">Obstacle Density <span>1.4 boulders/100m²</span></div>
+            <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 0.2rem;">Traction Hazard: Moderate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NASA Open Data Resources Directory -->
+  <div class="modal-backdrop" id="modalDatasets">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-database" style="color: var(--color-emerald);"></i>
+          Open NASA Data &amp; Space Agency Resources Directory
+        </div>
+        <button class="modal-close" data-close="modalDatasets">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          All analog identifications and surface characterizations within TERRA-LUNA leverage freely accessible, open-science datasets from NASA, ESA, JAXA, and USGS.
+        </p>
+
+        <div id="openDataListContainer" style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Project Brief & Submission Info -->
+  <div class="modal-backdrop" id="modalProjectInfo">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-shuttle-space" style="color: var(--color-cyan);"></i>
+          NASA Space Apps Challenge 2026 Submission
+        </div>
+        <button class="modal-close" data-close="modalProjectInfo">&times;</button>
+      </div>
+      <div class="modal-body" style="line-height: 1.6; font-size: 0.88rem; color: var(--text-main);">
+        <h3 style="font-family: var(--font-display); font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">
+          TERRA-LUNA: Planetary Surface Analog Discovery &amp; Characterization Engine
+        </h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          <strong>Challenge:</strong> Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars.
+        </p>
+        
+        <div style="background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border-accent); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem;">
+          <h4 style="color: var(--color-cyan); font-size: 0.9rem; margin-bottom: 0.35rem;">Project Summary</h4>
+          <p style="font-size: 0.82rem; color: #cbd5e1;">
+            Selecting permanent lunar base sites (e.g., Artemis South Pole Shackleton Rim, Marius Hills Lava Tubes) and Mars landing zones (Jezero Crater, Utopia Planitia) requires validating critical hardware and survival protocols before launch. TERRA-LUNA harnesses open Earth, Moon, and Mars orbital datasets from NASA (LRO LOLA, Diviner, MRO CRISM/HiRISE, Earthdata SRTM/MODIS/EMIT) to discover, cross-reference, and characterize terrestrial analog sites across volcanic lava tubes, hyper-arid salt flats, high-arctic impact craters, and polar deserts. Our platform computes a multi-parametric 5-axis Planetary Similarity Index (Topography, Mineralogy, Environmental Extremes, Regolith Mechanics, and Mission Utility) and delivers an interactive geospatial intelligence dashboard with side-by-side telemetry, topographic transect simulators, and exportable mission briefing dossiers.
+          </p>
+        </div>
+
+        <h4 style="color: #fff; font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0.5rem;">Core Capabilities &amp; Innovation</h4>
+        <ul class="bullet-list" style="margin-bottom: 1.25rem;">
+          <li><i class="fa-solid fa-check"></i> <strong>Quantitative 5-Axis Analog Index:</strong> Replaces subjective comparisons with mathematical scoring grounded in NASA LOLA, MOLA, and CRISM spectral data.</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Interactive Geospatial Explorer:</strong> Dark-mode NASA telemetry map linking Earth analogs directly to Artemis base candidates and Mars exploration zones.</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Topographic Transect Simulator:</strong> Real-time cross-section slope roughness and obstacle evaluation for rover traverse planning.</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Dual-Body Telemetry Matrix:</strong> Direct head-to-head parameter comparison with live radar charts.</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Mission Briefing Dossier Export:</strong> Instant PDF/printable briefing sheets for field mission teams and mission planners.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- External Script Dependencies -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- App Data and Scripts -->
+  <script src="data/analogs_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

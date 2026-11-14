@@ -1,0 +1,180 @@
+{
+  "planetary_targets": [
+    {
+      "id": "moon-shackleton",
+      "name": "Shackleton Crater Rim",
+      "body": "Moon",
+      "mission": "Artemis III / IV Base Camp",
+      "coordinates": "89.9° S, 0.0° E",
+      "elevation": "+1,200 m (rim peak)",
+      "tempRange": "-246°C to -10°C",
+      "geology": "Anorthositic highland breccia, volatile-rich regolith, permanently shadowed cold traps",
+      "primaryChallenge": "Extreme cryogenic temperatures, sharp elevation gradients, volatile sampling"
+    },
+    {
+      "id": "moon-malapert",
+      "name": "Malapert Mountain",
+      "body": "Moon",
+      "mission": "Artemis Communication & Power Relay",
+      "coordinates": "85.99° S, 2.93° E",
+      "elevation": "+5,000 m relative height",
+      "tempRange": "-180°C to -20°C",
+      "geology": "Feldspathic highland plateau material",
+      "primaryChallenge": "Surface rover ascent over 15-20° slopes"
+    },
+    {
+      "id": "moon-marius",
+      "name": "Marius Hills Pit & Lava Tube",
+      "body": "Moon",
+      "mission": "Subsurface Habitation & Radiation Shelter",
+      "coordinates": "14.1° N, 56.7° W",
+      "elevation": "-50 m depth, ~65 m diameter",
+      "tempRange": "-20°C (stable interior)",
+      "geology": "Basaltic mare lava flows, intact subterranean roof",
+      "primaryChallenge": "Vertical ingress/egress robotics, subterranean telemetry"
+    },
+    {
+      "id": "mars-jezero",
+      "name": "Jezero Crater Delta",
+      "body": "Mars",
+      "mission": "Perseverance Rover & Sample Return",
+      "coordinates": "18.38° N, 77.58° E",
+      "elevation": "-2,500 m floor",
+      "tempRange": "-90°C to +5°C",
+      "geology": "Smectite clays, Fe/Mg-carbonates, olivine sandstones",
+      "primaryChallenge": "Boulder fields, abrasive dust, biosignature detection"
+    },
+    {
+      "id": "mars-gale",
+      "name": "Gale Crater & Mount Sharp",
+      "body": "Mars",
+      "mission": "Curiosity Rover Habitability Exploration",
+      "coordinates": "5.4° S, 137.8° E",
+      "elevation": "-4,500 m to +5,500 m",
+      "tempRange": "-100°C to +10°C",
+      "geology": "Hydrated sulfates, mudstones, eolian dunes",
+      "primaryChallenge": "Ventifact sharp wheel hazards, dune locomotion slip"
+    },
+    {
+      "id": "mars-utopia",
+      "name": "Utopia Planitia Subsurface Ice",
+      "body": "Mars",
+      "mission": "Human Landing & Subsurface Water ISRU",
+      "coordinates": "46.7° N, 117.5° E",
+      "elevation": "-4,100 m",
+      "tempRange": "-110°C to -15°C",
+      "geology": "Scalloped terrain, pure water ice sheet under regolith mantle",
+      "primaryChallenge": "Cryogenic thermal drilling, permafrost stability"
+    }
+  ],
+  "earth_analogs": [
+    {
+      "id": "analog-askja",
+      "name": "Askja Caldera & Holuhraun Lava Fields",
+      "region": "Central Highlands, Iceland",
+      "coordinates": "65.03° N, 16.75° W",
+      "category": "Volcanic & Basaltic",
+      "matched_target": "moon-marius",
+      "overall_score": 94
+    },
+    {
+      "id": "analog-mcmurdo",
+      "name": "McMurdo Dry Valleys",
+      "region": "Victoria Land, Antarctica",
+      "coordinates": "77.85° S, 160.85° E",
+      "category": "Polar Cold Desert & Permafrost",
+      "matched_target": "mars-utopia",
+      "overall_score": 96
+    },
+    {
+      "id": "analog-atacama",
+      "name": "Atacama Desert (Yungay Core)",
+      "region": "Antofagasta, Chile",
+      "coordinates": "24.08° S, 69.95° W",
+      "category": "Hyper-Arid Desert",
+      "matched_target": "mars-jezero",
+      "overall_score": 95
+    },
+    {
+      "id": "analog-haughton",
+      "name": "Haughton Impact Crater",
+      "region": "Devon Island, Nunavut, Canada",
+      "coordinates": "75.38° N, 89.68° W",
+      "category": "Impact Crater & Polar",
+      "matched_target": "moon-shackleton",
+      "overall_score": 93
+    },
+    {
+      "id": "analog-lanzarote",
+      "name": "Lanzarote Volcanic Tubes",
+      "region": "Canary Islands, Spain",
+      "coordinates": "29.15° N, 13.44° W",
+      "category": "Lava Tubes & Caves",
+      "matched_target": "moon-marius",
+      "overall_score": 92
+    },
+    {
+      "id": "analog-maunaloa",
+      "name": "Mauna Loa Basalts & HI-SEAS",
+      "region": "Hawaii, USA",
+      "coordinates": "19.53° N, 155.57° W",
+      "category": "Volcanic & Basaltic",
+      "matched_target": "moon-marius",
+      "overall_score": 91
+    },
+    {
+      "id": "analog-danakil",
+      "name": "Danakil Depression & Dallol",
+      "region": "Afar Triangle, Ethiopia",
+      "coordinates": "14.24° N, 40.30° E",
+      "category": "Hydrothermal & Saline",
+      "matched_target": "mars-jezero",
+      "overall_score": 89
+    },
+    {
+      "id": "analog-wadirum",
+      "name": "Wadi Rum Red Sandstone Desert",
+      "region": "Aqaba Governorate, Jordan",
+      "coordinates": "29.57° N, 35.42° E",
+      "category": "Arid Eolian & Regolith",
+      "matched_target": "mars-gale",
+      "overall_score": 91
+    },
+    {
+      "id": "analog-kilbourne",
+      "name": "Kilbourne Hole Maar Crater",
+      "region": "New Mexico, USA",
+      "coordinates": "31.97° N, 106.96° W",
+      "category": "Maar Explosion Crater",
+      "matched_target": "moon-malapert",
+      "overall_score": 93
+    },
+    {
+      "id": "analog-cratersmoon",
+      "name": "Craters of the Moon",
+      "region": "Idaho, USA",
+      "coordinates": "43.46° N, 113.56° W",
+      "category": "Volcanic & Basaltic",
+      "matched_target": "moon-marius",
+      "overall_score": 90
+    },
+    {
+      "id": "analog-brimstone",
+      "name": "Brimstone Basin & Norris Geysers",
+      "region": "Yellowstone, Wyoming, USA",
+      "coordinates": "44.55° N, 110.35° W",
+      "category": "Hydrothermal Silica",
+      "matched_target": "mars-jezero",
+      "overall_score": 91
+    },
+    {
+      "id": "analog-svalbard",
+      "name": "Svalbard Spitsbergen (AMASE)",
+      "region": "Svalbard Archipelago, Norway",
+      "coordinates": "79.15° N, 14.50° E",
+      "category": "Polar Glacio-Volcanic",
+      "matched_target": "mars-utopia",
+      "overall_score": 92
+    }
+  ]
+}
