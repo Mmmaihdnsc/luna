@@ -56,7 +56,7 @@
 ### Slide 5: Core Features & User Experience
 - **Slide Title:** System Architecture & Interactive Capabilities
 - **Key Features:**
-  - **Geospatial Map & Dynamic Arcs:** CartoDB Dark Matter & Esri Satellite views with geodesic links between Earth and planetary bodies.
+  - **Geospatial Map & Dynamic Arcs:** Esri Dark Gray & Satellite views with geodesic links between Earth and planetary bodies.
   - **Dual Telemetry Comparative Matrix:** Head-to-head parameter comparison of any Earth analog with any Lunar or Martian target.
   - **Topographic Transect Simulator:** HTML5 Canvas cross-section engine visualizing crater rim slopes and obstacle densities.
   - **Mission Briefing Exporter:** One-click generation of printable field dossiers with logistics and NASA dataset links.

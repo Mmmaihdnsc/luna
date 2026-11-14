@@ -40,7 +40,7 @@ However, historical analog site selection has often been qualitative, isolated, 
 ## 🌟 Key Features
 
 - 🗺️ **Interactive Planetary Analog Map:**
-  - Dark-mode aerospace aesthetic built with Leaflet.js, CartoDB Dark Matter, and Esri High-Resolution Satellite imagery.
+  - Dark-mode aerospace aesthetic built with Leaflet.js, Esri World Dark Gray, and High-Resolution Satellite imagery.
   - Interactive "Analog Bridges" (geodesic arcs) visually linking Earth training sites to Artemis lunar landing zones and Martian rover targets.
   - Category and mission objective filters (Volcanic Basalts, Polar Cold Deserts, Lava Tubes & Caves, Hyper-Arid Deserts, Maar/Impact Craters).
 - 📊 **5-Axis Planetary Similarity Index:**

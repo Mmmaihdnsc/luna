@@ -26,7 +26,7 @@ TERRA-LUNA is an interactive geospatial intelligence and decision-support platfo
    - **Environmental Extremes ($S_{env}$):** Diurnal temperature range, aridity index, and solar radiation flux from Diviner, MODIS, and ECOSTRESS.
    - **Regolith & Traction Mechanics ($S_{reg}$):** Particle size distribution, cohesion, and friction angles for rover wheels and boot treads.
    - **Mission Subsystem Utility ($S_{util}$):** Operational applicability for spacesuit EVA, autonomous navigation, ISRU drilling, and cave habitat construction.
-2. **Interactive Planetary Map & Telemetry Dashboard:** Built using Leaflet.js with CartoDB Dark Matter and Esri High-Resolution Satellite layers, featuring glowing status pins, dynamic geodesic connection arcs ("Analog Bridges"), and real-time category filtering.
+2. **Interactive Planetary Map & Telemetry Dashboard:** Built using Leaflet.js with Esri World Dark Gray and High-Resolution Satellite layers, featuring glowing status pins, dynamic geodesic connection arcs ("Analog Bridges"), and real-time category filtering.
 3. **Dual Telemetry Comparative Matrix:** Allows instantaneous side-by-side evaluation of any Earth analog against any Lunar or Martian target, generating dynamic multi-axis radar charts and parameter delta tables.
 4. **Topographic Transect Simulator:** An interactive cross-section simulator visualizing terrain slope profiles and obstacle hazards for rover traverses.
 5. **Mission Briefing Exporter:** Formats and exports printable, high-density scientific dossiers for field expedition teams.
@@ -42,7 +42,7 @@ TERRA-LUNA bridges the gap between planetary remote sensing and terrestrial fiel
 
 ### What tools, coding languages, hardware, or software did you use?
 - **Languages & Core Tech:** HTML5, CSS3 (Custom NASA Mission Control Glassmorphism UI), JavaScript (ES6+), Python 3.11 (data formatting, validation, and local server orchestration).
-- **Mapping & Geospatial Libraries:** Leaflet.js (v1.9.4), CartoDB Dark Matter API, Esri World Imagery Satellite tiles.
+- **Mapping & Geospatial Libraries:** Leaflet.js (v1.9.4), Esri ArcGIS Basemap Services, Esri World Imagery Satellite tiles.
 - **Data Visualization:** Chart.js (multi-dimensional radar charts), HTML5 Canvas API (interactive topographic transect simulator).
 - **Typography & Icons:** Google Fonts (Orbitron, Inter, Space Mono), FontAwesome 6.4.
 - **Data Formats:** GeoJSON and structured JSON catalogs compatible with GIS and NASA PDS pipelines.
